@@ -39,7 +39,6 @@ export const userRouter = new Hono<{
       })
     }
     catch(e){
-      console.log(e);
       return c.text("Credential invalid")
     }
   })

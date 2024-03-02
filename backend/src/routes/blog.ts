@@ -51,7 +51,6 @@ export const blogRouter = new Hono<{
       return c.json({id: res.id})
     }
     catch(e){
-      console.log(e);
       return c.json({error: "Unknown"})
   
     }
@@ -65,7 +64,6 @@ export const blogRouter = new Hono<{
   
     const body = await c.req.json();
     const success = blogUpdate.safeParse(body);
-    console.log(success);
     if(!success){
       c.status(403);
       return c.json({msg: "invalid inputs"})
@@ -84,7 +82,6 @@ export const blogRouter = new Hono<{
       return c.json({msg: "contents Updated"})
     }
     catch(e){
-      console.log(e);
       return c.json({error: "error whle updating"})
     }
   })
@@ -94,14 +91,12 @@ export const blogRouter = new Hono<{
       datasourceUrl: c.env?.DATABASE_URL,
       }).$extends(withAccelerate())
     const id = await c.req.param("id");
-    console.log(id);
     try{
       const res = await prisma.post.findUnique({
         where: {
           id: id,
         }
       })
-      console.log(res);
       return c.json({data: res})
     }
     catch(e){
